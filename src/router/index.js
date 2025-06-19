@@ -56,6 +56,14 @@ const router = createRouter({
         isGuestPage: false,
       },
     },
+    {
+      path: '/event/create',
+      name: 'createEvent',
+      component: () => import('../views/EventCreateView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
+    },
   ],
 });
 

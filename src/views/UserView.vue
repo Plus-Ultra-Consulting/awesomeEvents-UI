@@ -1,6 +1,9 @@
 <script setup>
 import {ref, onMounted} from "vue";
 import {getApiUrl} from "@/utils.js";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const user = ref({
   id: null,
@@ -39,18 +42,36 @@ const updateUser = async () => {
     body: JSON.stringify(payload),
   };
 
-  try {
-    const response = await fetch(`${getApiUrl()}/user`, request);
-    if (!response.ok) {
-      return;
-    }
-    const result = await response.json();
-    console.log("User updated: ", result);
-    alert("User updated successfully!");
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(`${getApiUrl()}/user`, request);
+  if (!response.ok) {
     alert("Failed to update user.");
+    return;
   }
+  const result = await response.json();
+  console.log("User updated: ", result);
+  alert("User updated successfully!");
+};
+
+const deleteUser = async () => {
+  const request = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
+    }
+  };
+
+  const response = await fetch(`${getApiUrl()}/user`, request);
+  if (!response.ok) {
+    alert("Failed to delete user.");
+    return;
+  }
+  const result = await response.json();
+  console.log("User deleted: ", result);
+  alert("User deleted successfully!");
+
+  localStorage.setItem("auth.accessToken", "");
+  router.push({name: "login"});
 };
 
 onMounted(loadUser);
@@ -78,5 +99,6 @@ onMounted(loadUser);
     <input type="text" class="form-control" id="role" :value="user.role" disabled/>
 
     <button class="btn btn-primary mt-3" @click="updateUser">Update</button>
+    <button class="btn btn-danger mt-3" @click="deleteUser">Delete</button>
   </div>
 </template>

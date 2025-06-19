@@ -24,21 +24,16 @@ const register = async () => {
     body,
   };
 
-  try {
-    const response = await fetch(`${getApiUrl()}/user/registration`, request);
-    if (!response.ok) {
-      alert("Error registering new user. Please try again!");
-      return;
-    }
-    const result = await response.json();
-    console.log("User registered: ", result);
-    alert("Registration successful!");
-
-    await router.push({name: "login"});
-  } catch (error) {
-    console.error(error);
-    alert("Registration failed.");
+  const response = await fetch(`${getApiUrl()}/user/registration`, request);
+  if (!response.ok) {
+    alert("Error registering new user. Please try again!");
+    return;
   }
+  const result = await response.json();
+  console.log("User registered: ", result);
+  alert("Registration successful!");
+
+  await router.push({name: "login"});
 };
 
 const goToLoginPage = () => {
