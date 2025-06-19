@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onMounted} from "vue";
+import {getApiUrl} from "@/utils.js";
 
 const user = ref({
   id: null,
@@ -16,7 +17,7 @@ const loadUser = async () => {
       authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
     },
   };
-  const response = await fetch("http://localhost:8080/user", request);
+  const response = await fetch(`${getApiUrl()}/user`, request);
   const data = await response.json();
   console.log(data);
   user.value = data;
@@ -30,7 +31,7 @@ const updateUser = async () => {
   };
 
   const request = {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
@@ -39,7 +40,7 @@ const updateUser = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/user/edit", request);
+    const response = await fetch(`${getApiUrl()}/user`, request);
     if (!response.ok) {
       return;
     }

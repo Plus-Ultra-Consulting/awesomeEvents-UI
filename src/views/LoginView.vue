@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import {getApiUrl} from "@/utils.js";
 
 const router = useRouter();
 
@@ -17,7 +18,7 @@ const login = async () => {
     method: "POST",
     body,
   };
-  const response = await fetch("http://localhost:8080/user/login", request);
+  const response = await fetch(`${getApiUrl()}/user/login`, request);
   if (!response.ok) {
     alert("Error logging in. Please try again!");
     return;

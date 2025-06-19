@@ -1,6 +1,7 @@
 <script setup>
 import {ref, onMounted} from "vue";
 import dayjs from "dayjs";
+import {getApiUrl} from "@/utils.js";
 
 const events = ref([]);
 
@@ -10,7 +11,7 @@ const loadEvents = async () => {
       authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
     },
   };
-  const response = await fetch("http://localhost:8080/event", request);
+  const response = await fetch(`${getApiUrl()}/event`, request);
   const data = await response.json();
   console.log(data);
   events.value = data.events;

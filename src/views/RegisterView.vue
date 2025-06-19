@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import {getApiUrl} from "@/utils.js";
 
 const router = useRouter();
 
@@ -24,7 +25,7 @@ const register = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:8080/user/registration", request);
+    const response = await fetch(`${getApiUrl()}/user/registration`, request);
     if (!response.ok) {
       alert("Error registering new user. Please try again!");
       return;
