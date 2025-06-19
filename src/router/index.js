@@ -13,7 +13,7 @@ const router = createRouter({
       name: "login",
       component: LoginView,
       meta: {
-        guestOk: true,
+        isGuestPage: true,
       },
     },
     {
@@ -21,7 +21,7 @@ const router = createRouter({
       name: "logout",
       component: LogoutView,
       meta: {
-        guestOk: true,
+        isGuestPage: false,
       },
     },
     {
@@ -29,39 +29,46 @@ const router = createRouter({
       name: "register",
       component: RegisterView,
       meta: {
-        guestOk: true,
+        isGuestPage: true,
       },
     },
     {
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: {
+        isGuestPage: false,
+      },
     },
     {
       path: '/event',
       name: 'event',
       component: () => import('../views/EventView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
     },
     {
       path: '/user',
       name: 'user',
       component: () => import('../views/UserView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
     },
   ],
 });
 
-router.beforeEach(async (to) => {
-  if (to.meta.guestOk) {
-    return;
+router.beforeEach(async (page) => {
+  if (page.meta.isGuestPage && hasAccessToken()) {
+    return {
+      name: "home",
+    };
+  } else if (!page.meta.isGuestPage && !hasAccessToken()) {
+    return {
+      name: "login",
+    };
   }
-
-  if (hasAccessToken()) {
-    return;
-  }
-
-  return {
-    name: "login",
-  };
 });
 
 export default router
