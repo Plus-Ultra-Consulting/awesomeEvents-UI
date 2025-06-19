@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
+import {createRouter, createWebHistory} from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import LoginView from '../views/LoginView.vue';
 import LogoutView from "../views/LogoutView.vue";
 import RegisterView from "../views/RegisterView.vue";
-import { hasAccessToken } from "../utils"
+import {hasAccessToken} from "../utils";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,11 +39,16 @@ const router = createRouter({
     },
     {
       path: '/event',
-      name: 'evet',
+      name: 'event',
       component: () => import('../views/EventView.vue'),
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('../views/UserView.vue'),
+    },
   ],
-})
+});
 
 router.beforeEach(async (to) => {
   if (to.meta.guestOk) {
@@ -53,7 +58,7 @@ router.beforeEach(async (to) => {
   if (hasAccessToken()) {
     return;
   }
-  
+
   return {
     name: "login",
   };
