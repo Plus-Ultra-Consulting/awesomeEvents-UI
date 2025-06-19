@@ -25,7 +25,10 @@ const register = async () => {
 
   try {
     const response = await fetch("http://localhost:8080/user/registration", request);
-    if (!response.ok) throw new Error("Registration failed");
+    if (!response.ok) {
+      alert("Error registering new user. Please try again!");
+      return;
+    }
     const result = await response.json();
     console.log("User registered: ", result);
     alert("Registration successful!");
