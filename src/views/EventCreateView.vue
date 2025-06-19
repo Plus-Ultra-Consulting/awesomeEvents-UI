@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from "vue";
+import {ref} from "vue";
 import {getApiUrl} from "@/utils.js";
 import {useRouter} from "vue-router";
 
@@ -33,6 +33,7 @@ const createEvent = async () => {
   const result = await response.json();
   console.log("Event created: ", result);
   alert("Event created successfully!");
+  await router.push({name: "event"});
 };
 </script>
 <template>
