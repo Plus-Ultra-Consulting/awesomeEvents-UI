@@ -94,7 +94,9 @@ const deleteEvent = async () => {
   console.log(data);
 }
 
-const sendEmailToPerson = (personId) => {
+const sendEmailToPerson = async (personId) => {
+  alert("Trying to send email... Please wait.")
+
   const body = {
     id: personId
   };
@@ -106,7 +108,7 @@ const sendEmailToPerson = (personId) => {
     },
     body: JSON.stringify(body),
   };
-  const response = fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
+  const response = await fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
   if (!response.ok) {
     alert("Failed to send email.");
     return;
@@ -143,8 +145,11 @@ const activateCode = async () => {
       authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
     },
     method: "POST",
+    body: JSON.stringify({
+      securityCode: securityCode.value.securityCode
+    }),
   };
-  const response = await fetch(`${getApiUrl()}/person/${securityCode.value.securityCode}/useCode`, request);
+  const response = await fetch(`${getApiUrl()}/person/useSecurityCode`, request);
   if (response.ok) {
     router.go();
   }
