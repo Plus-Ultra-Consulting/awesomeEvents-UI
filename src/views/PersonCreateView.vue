@@ -42,13 +42,13 @@ const createPerson = async () => {
   <h5>Create new event</h5>
 
   <div class="mb-3">
-    <label for="firstName" class="form-label">name</label>
+    <label for="firstName" class="form-label">Name</label>
     <input type="text" class="form-control" id="firstName" v-model="firstName"/>
 
-    <label for="lastName" class="form-label">place</label>
+    <label for="lastName" class="form-label">Place</label>
     <input type="text" class="form-control" id="lastName" v-model="lastName"/>
 
-    <label for="email" class="form-label">starts at</label>
+    <label for="email" class="form-label">Starts at</label>
     <input type="email" class="form-control" id="email" v-model="email"/>
 
     <button class="btn btn-primary mt-3" @click="createPerson">Create</button>

@@ -37,7 +37,7 @@ const goToRegistrationPage = () => {
 </script>
 <template>
   <div class="mb-3">
-    <label for="username" class="form-label">Email address</label>
+    <label for="username" class="form-label">Email</label>
     <input type="email" class="form-control" id="username" v-model="username">
 
     <button class="btn btn-primary mt-3" @click="login">Login</button>

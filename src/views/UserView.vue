@@ -83,16 +83,16 @@ onMounted(loadUser);
     <label for="userId" class="form-label">ID</label>
     <input type="text" class="form-control" id="userId" :value="user.id" disabled/>
 
-    <label for="firstName" class="form-label">First Name</label>
+    <label for="firstName" class="form-label">First name</label>
     <input type="text" class="form-control" id="firstName" v-model="user.firstName"/>
 
-    <label for="lastName" class="form-label">Last Name</label>
+    <label for="lastName" class="form-label">Last name</label>
     <input type="text" class="form-control" id="lastName" v-model="user.lastName"/>
 
-    <label for="email" class="form-label">Email address</label>
+    <label for="email" class="form-label">Email</label>
     <input type="email" class="form-control" id="email" v-model="user.email"/>
 
-    <label for="createdAt" class="form-label">Created At</label>
+    <label for="createdAt" class="form-label">Created at</label>
     <input type="text" class="form-control" id="createdAt" :value="user.createdAt" disabled/>
 
     <label for="role" class="form-label">Role</label>

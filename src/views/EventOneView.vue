@@ -14,6 +14,10 @@ const event = ref({
   createdAt: "",
 });
 
+const securityCode = ref({
+  securityCode: "XXXXXX",
+});
+
 const people = ref([]);
 
 const loadEvent = async () => {
@@ -90,11 +94,9 @@ const deleteEvent = async () => {
   console.log(data);
 }
 
-const sendEmailToPerson = (email) => {
+const sendEmailToPerson = (personId) => {
   const body = {
-    email: email,
-    subject: "Hello",
-    text: "Hello",
+    id: personId
   };
   const request = {
     method: "POST",
@@ -104,7 +106,7 @@ const sendEmailToPerson = (email) => {
     },
     body: JSON.stringify(body),
   };
-  const response = fetch(`${getApiUrl()}/email`, request);
+  const response = fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
   if (!response.ok) {
     alert("Failed to send email.");
     return;
@@ -127,6 +129,22 @@ const deletePerson = async (personId) => {
     }),
   };
   const response = await fetch(`${getApiUrl()}/person`, request);
+  if (response.ok) {
+    router.go();
+  }
+  const data = await response.json();
+  console.log(data);
+}
+
+const activateCode = async () => {
+  const request = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
+    },
+    method: "POST",
+  };
+  const response = await fetch(`${getApiUrl()}/person/${securityCode.value.securityCode}/useCode`, request);
   if (response.ok) {
     router.go();
   }
@@ -165,7 +183,7 @@ onMounted(loadPage)
     <label for="startAt" class="form-label">Starts at</label>
     <input type="text" class="form-control" id="startAt" v-model="event.startAt"/>
 
-    <label for="createdAt" class="form-label">Created At</label>
+    <label for="createdAt" class="form-label">Created at</label>
     <input type="text" class="form-control" id="createdAt" :value="event.createdAt" disabled/>
 
     <button class="btn btn-primary mt-3" @click="updateEvent">Update</button>
@@ -175,10 +193,10 @@ onMounted(loadPage)
   <h5>List of people</h5>
   <div class="row">
     <div class="col">
-      First Name
+      First name
     </div>
     <div class="col">
-      Last Name
+      Last name
     </div>
     <div class="col">
       Email
@@ -188,7 +206,10 @@ onMounted(loadPage)
   </div>
 
   <div class="row" v-for="person of people">
-    <a href="#" class="col link-dark" @click="goToPersonPage(person.id)">
+    <a v-if="person.securityCodeActivatedAt === null" href="#" class="col link-dark" @click="goToPersonPage(person.id)">
+      {{ person.firstName }}
+    </a>
+    <a v-else href="#" class="col link-dark bg-success" @click="goToPersonPage(person.id)">
       {{ person.firstName }}
     </a>
     <div class="col">
@@ -198,10 +219,17 @@ onMounted(loadPage)
       {{ person.email }}
     </div>
     <div class="col">
-      <button class="btn btn-success bi bi-envelope-arrow-up" @click="sendEmailToPerson(person.email)"></button>
+      <button class="btn btn-success bi bi-envelope-arrow-up" @click="sendEmailToPerson(person.id)"></button>
       <button class="btn btn-danger bi bi-trash" @click="deletePerson(person.id)"></button>
     </div>
   </div>
 
   <button class="btn btn-outline-primary mt-3" @click="goToPersonCreatePage">Create new</button>
+
+  <div class="mb-3">
+    <label for="securityCode" class="form-label">Security code</label>
+    <input type="text" class="form-control" id="securityCode" v-model="securityCode.securityCode"/>
+
+    <button class="btn btn-success mt-3" @click="activateCode">Activate code</button>
+  </div>
 </template>

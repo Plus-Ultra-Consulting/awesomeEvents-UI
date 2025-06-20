@@ -13,6 +13,8 @@ const person = ref({
   lastName: "",
   email: "",
   createdAt: "",
+  securityCode: "",
+  securityCodeActivatedAt: "",
 });
 
 const loadPerson = async () => {
@@ -79,11 +81,9 @@ const goToPersonEventPage = async () => {
   await router.push({name: "oneEvent", params: {id: eventId}});
 }
 
-const sendEmailToPerson = (email) => {
+const sendEmailToPerson = () => {
   const body = {
-    email: email,
-    subject: "Hello",
-    text: "Hello",
+    id: personId
   };
   const request = {
     method: "POST",
@@ -93,7 +93,7 @@ const sendEmailToPerson = (email) => {
     },
     body: JSON.stringify(body),
   };
-  const response = fetch(`${getApiUrl()}/email`, request);
+  const response = fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
   if (!response.ok) {
     alert("Failed to send email.");
     return;
@@ -122,13 +122,20 @@ onMounted(loadPerson)
     <label for="startAt" class="form-label">Email</label>
     <input type="text" class="form-control" id="startAt" v-model="person.email"/>
 
-    <label for="createdAt" class="form-label">Created At</label>
+    <label for="createdAt" class="form-label">Created at</label>
     <input type="text" class="form-control" id="createdAt" :value="person.createdAt" disabled/>
+
+    <label for="securityCode" class="form-label">Security code</label>
+    <input type="text" class="form-control" id="securityCode" :value="person.securityCode"
+           disabled/>
+
+    <div v-if="person.securityCodeActivatedAt === null">Security code wasn't used</div>
+    <div v-else class="bg-warning">Security code was used {{ person.securityCodeActivatedAt }}</div>
 
     <button class="btn btn-primary mt-3" @click="updatePerson">Update</button>
     <button class="btn btn-danger mt-3" @click="deletePerson">Delete</button>
-    <button class="btn btn-success mt-3 bi bi-envelope-arrow-up"
-            @click="sendEmailToPerson(person.email)"> Send email
+    <button class="btn btn-success mt-3 bi bi-envelope-arrow-up" @click="sendEmailToPerson"> Send
+      email
     </button>
     <button class="btn btn-secondary mt-3" @click="goToPersonEventPage">Go back</button>
   </div>

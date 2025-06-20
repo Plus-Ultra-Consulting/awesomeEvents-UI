@@ -43,13 +43,13 @@ const goToLoginPage = () => {
 
 <template>
   <div class="mb-3">
-    <label for="firstName" class="form-label">First Name</label>
+    <label for="firstName" class="form-label">First name</label>
     <input type="text" class="form-control" id="firstName" v-model="firstName"/>
 
-    <label for="lastName" class="form-label">Last Name</label>
+    <label for="lastName" class="form-label">Last name</label>
     <input type="text" class="form-control" id="lastName" v-model="lastName"/>
 
-    <label for="email" class="form-label">Email address</label>
+    <label for="email" class="form-label">Email</label>
     <input type="email" class="form-control" id="email" v-model="email"/>
 
     <button class="btn btn-primary mt-3" @click="register">Register</button>

@@ -40,13 +40,13 @@ const createEvent = async () => {
   <h5>Create new event</h5>
 
   <div class="mb-3">
-    <label for="name" class="form-label">name</label>
+    <label for="name" class="form-label">Name</label>
     <input type="text" class="form-control" id="name" v-model="name"/>
 
-    <label for="place" class="form-label">place</label>
+    <label for="place" class="form-label">Place</label>
     <input type="text" class="form-control" id="place" v-model="place"/>
 
-    <label for="startAt" class="form-label">starts at</label>
+    <label for="startAt" class="form-label">Starts at</label>
     <input type="text" class="form-control" id="startAt" v-model="startAt"/>
 
     <button class="btn btn-primary mt-3" @click="createEvent">Create</button>

@@ -59,7 +59,7 @@ onMounted(loadEvents);
       Place
     </div>
     <div class="col">
-      Starts At
+      Starts at
     </div>
     <div class="col">
     </div>
