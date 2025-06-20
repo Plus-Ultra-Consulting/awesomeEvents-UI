@@ -24,8 +24,8 @@ const goToCreateEventPage = () => {
   router.push({name: "createEvent"});
 }
 
-const goToEventPage = () => {
-  router.push({name: "event"});
+const goToEventPage = (id) => {
+  router.push({name: "oneEvent", params: {id: String(id)}});
 }
 
 const deleteEvent = async (id) => {
@@ -65,7 +65,7 @@ onMounted(loadEvents);
     </div>
   </div>
   <div class="row" v-for="event of events">
-    <a class="col link-dark" @click="goToEventPage">
+    <a href="#" class="col link-dark" @click="goToEventPage(event.id)">
       {{ event.name }}
     </a>
     <div class="col">

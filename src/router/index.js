@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from "../views/LogoutView.vue";
 import RegisterView from "../views/RegisterView.vue";
-import {hasAccessToken} from "../utils";
+import {getApiUrl, hasAccessToken} from "../utils";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +60,30 @@ const router = createRouter({
       path: '/event/create',
       name: 'createEvent',
       component: () => import('../views/EventCreateView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
+    },
+    {
+      path: '/event/:id',
+      name: 'oneEvent',
+      component: () => import('../views/EventOneView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
+    },
+    {
+      path: '/event/:id/createPerson',
+      name: 'createPerson',
+      component: () => import('../views/PersonCreateView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
+    },
+    {
+      path: '/event/:eventId/:personId',
+      name: 'onePerson',
+      component: () => import('../views/PersonOneView.vue'),
       meta: {
         isGuestPage: false,
       },
