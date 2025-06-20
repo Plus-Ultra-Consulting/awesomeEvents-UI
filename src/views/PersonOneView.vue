@@ -80,7 +80,28 @@ const goToPersonEventPage = async () => {
 }
 
 const sendEmailToPerson = (email) => {
+  const body = {
+    email: email,
+    subject: "Hello",
+    text: "Hello",
+  };
+  const request = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("auth.accessToken")}`,
+    },
+    body: JSON.stringify(body),
+  };
+  const response = fetch(`${getApiUrl()}/email`, request);
+  if (!response.ok) {
+    alert("Failed to send email.");
+    return;
+  }
 
+  alert("Email sent successfully!");
+  const data = response.json();
+  console.log(data);
 }
 
 onMounted(loadPerson)
