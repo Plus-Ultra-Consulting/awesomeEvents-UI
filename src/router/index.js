@@ -88,6 +88,14 @@ const router = createRouter({
         isGuestPage: false,
       },
     },
+    {
+      path: '/event/:eventId/securityCode/:personSecurityCode',
+      name: 'secCodeUseQR',
+      component: () => import('../views/SecurityCodeActivationView.vue'),
+      meta: {
+        isGuestPage: false,
+      },
+    },
   ],
 });
 

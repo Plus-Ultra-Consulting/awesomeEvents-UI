@@ -81,7 +81,9 @@ const goToPersonEventPage = async () => {
   await router.push({name: "oneEvent", params: {id: eventId}});
 }
 
-const sendEmailToPerson = () => {
+const sendEmailToPerson = async () => {
+  alert("Trying to send email... Please wait.")
+
   const body = {
     id: personId
   };
@@ -93,7 +95,7 @@ const sendEmailToPerson = () => {
     },
     body: JSON.stringify(body),
   };
-  const response = fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
+  const response = await fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
   if (!response.ok) {
     alert("Failed to send email.");
     return;
@@ -119,8 +121,8 @@ onMounted(loadPerson)
     <label for="place" class="form-label">Last name</label>
     <input type="text" class="form-control" id="place" v-model="person.lastName"/>
 
-    <label for="startAt" class="form-label">Email</label>
-    <input type="text" class="form-control" id="startAt" v-model="person.email"/>
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" v-model="person.email"/>
 
     <label for="createdAt" class="form-label">Created at</label>
     <input type="text" class="form-control" id="createdAt" :value="person.createdAt" disabled/>
