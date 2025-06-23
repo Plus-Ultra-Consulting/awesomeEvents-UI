@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {getApiUrl} from "@/utils.js";
+import {getApiUrl, showModalWhenReady} from "@/utils.js";
 
 const router = useRouter();
 
@@ -26,14 +26,13 @@ const register = async () => {
 
   const response = await fetch(`${getApiUrl()}/user/registration`, request);
   if (!response.ok) {
-    alert("Error registering new user. Please try again!");
+    showModalWhenReady('registrationFailedModal');
     return;
   }
   const result = await response.json();
   console.log("User registered: ", result);
-  alert("Registration successful!");
 
-  await router.push({name: "login"});
+  showModalWhenReady('registeredSuccessfullyModal');
 };
 
 const goToLoginPage = () => {
@@ -54,5 +53,37 @@ const goToLoginPage = () => {
 
     <button class="btn btn-primary mt-3" @click="register">Register</button>
     <button class="btn btn-outline-secondary mt-3" @click="goToLoginPage">Log in</button>
+  </div>
+
+  <div class="modal fade" id="registeredSuccessfullyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Registration Successful !</h1>
+        </div>
+        <div class="modal-body">
+          Your account has been registered. You can now login.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="goToLoginPage">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="registrationFailedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Registration Failed !</h1>
+        </div>
+        <div class="modal-body">
+          Failed to send register an account. Please try again.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
