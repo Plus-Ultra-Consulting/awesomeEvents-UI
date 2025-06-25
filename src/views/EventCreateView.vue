@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import {getApiUrl} from "@/utils.js";
+import {getApiUrl, showModalWhenReady} from "@/utils.js";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
@@ -27,12 +27,11 @@ const createEvent = async () => {
 
   const response = await fetch(`${getApiUrl()}/event`, request);
   if (!response.ok) {
-    alert("Error creating new event. Please try again!");
+    showModalWhenReady("eventCreateFailedModal");
     return;
   }
   const result = await response.json();
   console.log("Event created: ", result);
-  alert("Event created successfully!");
   await router.push({name: "event"});
 };
 </script>
@@ -50,5 +49,21 @@ const createEvent = async () => {
     <input type="text" class="form-control" id="startAt" v-model="startAt"/>
 
     <button class="btn btn-primary mt-3" @click="createEvent">Create</button>
+  </div>
+
+  <div class="modal fade" id="eventCreateFailedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to create an event !</h1>
+        </div>
+        <div class="modal-body">
+          Failed to create an event. Please try again.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>

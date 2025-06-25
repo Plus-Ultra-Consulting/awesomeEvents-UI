@@ -1,7 +1,8 @@
 <script setup>
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import {getApiUrl} from "@/utils.js";
+import {getApiUrl, showModalWhenReady} from "@/utils.js";
+import { Modal } from "bootstrap";
 
 const router = useRouter();
 const eventId = router.currentRoute.value.params.eventId;
@@ -50,12 +51,12 @@ const updatePerson = async () => {
 
   const response = await fetch(`${getApiUrl()}/person`, request);
   if (!response.ok) {
-    alert("Failed to update person.");
+    showModalWhenReady("personUpdateFailedFailedModal");
     return;
   }
   const result = await response.json();
   console.log("Person updated: ", result);
-  alert("Person updated successfully!");
+  showModalWhenReady("personUpdateSuccessfulModal");
 };
 
 const deletePerson = async () => {
@@ -82,8 +83,6 @@ const goToPersonEventPage = async () => {
 }
 
 const sendEmailToPerson = async () => {
-  alert("Trying to send email... Please wait.")
-
   const body = {
     id: personId
   };
@@ -97,11 +96,16 @@ const sendEmailToPerson = async () => {
   };
   const response = await fetch(`${getApiUrl()}/person/sendSecurityCode`, request);
   if (!response.ok) {
-    alert("Failed to send email.");
+    showModalWhenReady('emailSentFailedModal');
     return;
   }
 
-  alert("Email sent successfully!");
+  const modalElementInProgress = document.getElementById('emailSendingInProgressModal');
+  const modalInProgress = Modal.getInstance(modalElementInProgress) || new Modal(modalElementInProgress);
+  modalInProgress.hide();
+
+  showModalWhenReady('emailSentSuccessfullyModal');
+
   const data = response.json();
   console.log(data);
 }
@@ -136,9 +140,93 @@ onMounted(loadPerson)
 
     <button class="btn btn-primary mt-3" @click="updatePerson">Update</button>
     <button class="btn btn-danger mt-3" @click="deletePerson">Delete</button>
-    <button class="btn btn-success mt-3 bi bi-envelope-arrow-up" @click="sendEmailToPerson"> Send
+    <button class="btn btn-success mt-3 bi bi-envelope-arrow-up" type="button" data-bs-toggle="modal" data-bs-target="#emailSendingInProgressModal" @click="sendEmailToPerson"> Send
       email
     </button>
     <button class="btn btn-secondary mt-3" @click="goToPersonEventPage">Go back</button>
+  </div>
+
+  <div class="modal fade" id="emailSendingInProgressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Sending email</h1>
+        </div>
+        <div class="modal-body">
+          Please wait until the email is sent.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">
+            <div class="spinner-border text-light spinner-border-sm" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="emailSentSuccessfullyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Email sent</h1>
+        </div>
+        <div class="modal-body">
+          Email has been sent to the user. Thank you for your patience.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="emailSentFailedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to send an email !</h1>
+        </div>
+        <div class="modal-body">
+          Failed to send an email. Please try again.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="personUpdateSuccessfulModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Successfully updated a person !</h1>
+        </div>
+        <div class="modal-body">
+          Successfully updated a person.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="personUpdateFailedFailedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to update a person !</h1>
+        </div>
+        <div class="modal-body">
+          Failed to update a person. Please try again.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>

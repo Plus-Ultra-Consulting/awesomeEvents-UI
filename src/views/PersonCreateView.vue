@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import {getApiUrl} from "@/utils.js";
+import {getApiUrl, showModalWhenReady} from "@/utils.js";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
@@ -29,12 +29,11 @@ const createPerson = async () => {
 
   const response = await fetch(`${getApiUrl()}/person`, request);
   if (!response.ok) {
-    alert("Error creating new person. Please try again!");
+    showModalWhenReady("eventCreateFailedModal");
     return;
   }
   const result = await response.json();
   console.log("Person created: ", result);
-  alert("Person created successfully!");
   await router.push({name: "oneEvent", params: {id: id.toString()}});
 };
 </script>
@@ -52,5 +51,21 @@ const createPerson = async () => {
     <input type="email" class="form-control" id="email" v-model="email"/>
 
     <button class="btn btn-primary mt-3" @click="createPerson">Create</button>
+  </div>
+
+  <div class="modal fade" id="eventCreateFailedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to create a person !</h1>
+        </div>
+        <div class="modal-body">
+          Failed to create a person. Please try again.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
