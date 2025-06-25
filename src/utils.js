@@ -6,8 +6,8 @@ export const hasAccessToken = () => {
 };
 
 export const getApiUrl = () => {
-  console.log("api url is", getConfig().api_url_base);
-  return getConfig().api_url_base;
+  console.log("VITE_API_URL=", getConfig().VITE_API_URL);
+  return getConfig().VITE_API_URL;
 };
 
 export const showModalWhenReady = (modalElementId) => {
@@ -28,7 +28,7 @@ export const showModalWhenReady = (modalElementId) => {
 }
 
 export const loadConfig = async () => {
-const response = await fetch(`/config.json`);
+const response = await fetch("/config.json");
   if (!response.ok) {
     console.log("Can't fetch config from server");
     return;
