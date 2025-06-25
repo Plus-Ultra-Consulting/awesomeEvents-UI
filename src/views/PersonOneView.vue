@@ -173,7 +173,7 @@ onMounted(loadPerson)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Email sent</h1>
         </div>
         <div class="modal-body">
-          Email has been sent to the user. Thank you for your patience.
+          Email has been sent to the user.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -189,7 +189,7 @@ onMounted(loadPerson)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to send an email !</h1>
         </div>
         <div class="modal-body">
-          Failed to send an email. Please try again.
+          Failed to send an email.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -221,7 +221,7 @@ onMounted(loadPerson)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to update a person !</h1>
         </div>
         <div class="modal-body">
-          Failed to update a person. Please try again.
+          Failed to update a person.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

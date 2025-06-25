@@ -1,41 +1,145 @@
-# awesomeEvents-ui
+# awesomeEvents-UI - Vue 3 Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+A containerized Vue 3 frontend application to add user interface for java spring boot [backend server](https://github.com/Plus-Ultra-Consulting/awesomeEvents). This version uses a prebuilt Docker image from Docker Hub and runs using **Docker Compose**
 
-## Recommended IDE Setup
+--- 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Quick start
 
-## Customize configuration
+Starting the application from a public docker image
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+> Docker Image:
+> **`cotezzlapyx/awesome-events-ui:latest`**
 
-## Project Setup
+---
 
-```sh
-npm install
+### Requirements
+
+Make sure you have the following installed:
+- [Docker](https://docks.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+---
+
+### Setup
+
+In a new folder, create `compose.yaml` with the following content
+
+```yaml
+services:
+  frontend:
+    image: cotezzlapyx/awesome-events-ui:latest
+    ports:
+      - "3000:80"
+    environment:
+      VITE_API_URL: ${VITE_API_URL}
 ```
 
-### Compile and Hot-Reload for Development
+Then, in the same folder, create `.env` file with following the content.
 
-```sh
-npm run dev
+```dotenv
+VITE_API_URL=http://localhost:8080
 ```
 
-### Compile and Minify for Production
+---
 
-```sh
-npm run build
+### Deploy
+
+Finally, run the following command in the terminal / CLI / etc. to start the server:
+
+```bash
+docker compose up -d
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Now, web server is available at `http://localhost:3000/` or another port if you changed it in the configuration.
 
-```sh
-npm run test:unit
+If you want to stop the server and remove the image, run:
+
+```bash
+docker compose down
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+If you want to access logs, run:
 
-```sh
-npm run lint
+```bash
+docker compose logs -f
 ```
+
+---
+
+## Manual build
+
+To build the image manually using the source code, you must follow the next instructions.
+
+---
+
+### Requirements
+
+Make sure you have the following installed:
+- [Docker](https://docks.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+---
+
+###  Setup
+
+First, you must set up the environment variables because they are used when building the image.
+
+In project root folder, create `.env` file with the following content.
+
+```dotenv
+VITE_API_URL=http://localhost:8080
+```
+
+---
+
+### Building the software
+
+#### Building docker image
+
+Now, to build a docker image from a project file, run:
+
+```bash
+docker compose build
+```
+
+---
+
+### Deploy
+
+Finally, run the following command in the terminal / CLI / etc. to start the server:
+
+```bash
+docker compose up -d
+```
+
+Web server is available at `http://localhost:3000/` or another port if you changed it in the configuration.
+
+If you want to stop the server and remove the image, run:
+
+```bash
+docker compose down
+```
+
+If you want to access logs, run:
+
+```bash
+docker compose logs -f
+```
+
+---
+
+## Additional info
+
+---
+
+### Environment configuration
+
+To set up the environment, you can do it manually.
+These are the example commands to do it:
+- cmd: `set VAR_NAME=value`
+- bash: `export VAR_NAME=value`
+- powershell: `$env:VAR_NAME="value"`
+
+Or you can create `.env` file in the main folder,
+and configure everything there.

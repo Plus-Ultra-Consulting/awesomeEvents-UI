@@ -125,7 +125,7 @@ onMounted(loadUser);
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to update the user !</h1>
         </div>
         <div class="modal-body">
-          Failed to update the user. Please try again.
+          Failed to update the user.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -157,7 +157,7 @@ onMounted(loadUser);
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to delete the user !</h1>
         </div>
         <div class="modal-body">
-          Failed to delete the user. Please try again.
+          Failed to delete the user.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

@@ -272,7 +272,7 @@ onMounted(loadPage)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Email sent</h1>
         </div>
         <div class="modal-body">
-          Email has been sent to the user. Thank you for your patience.
+          Email has been sent to the user.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -288,7 +288,7 @@ onMounted(loadPage)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to send an email !</h1>
         </div>
         <div class="modal-body">
-          Failed to send an email. Please try again.
+          Failed to send an email.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -320,7 +320,7 @@ onMounted(loadPage)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to update an event !</h1>
         </div>
         <div class="modal-body">
-          Failed to update an event. Please try again.
+          Failed to update an event.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -352,7 +352,7 @@ onMounted(loadPage)
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to activate security code !</h1>
         </div>
         <div class="modal-body">
-          Failed to activate security code. Please try again.
+          Failed to activate security code.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
