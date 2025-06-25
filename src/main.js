@@ -8,9 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./assets/main.css";
+import { loadConfig } from './utils';
 
 const app = createApp(App)
 
 app.use(router)
 
 app.mount('#app')
+
+loadConfig();
