@@ -1,6 +1,6 @@
-# awesomeEvents-UI - Vue3 Frontend
+# awesomeEvents-UI - Vue 3 Frontend
 
-A containerized Vue3 frontend application to add user interface for java spring boot [backend server](https://github.com/Plus-Ultra-Consulting/awesomeEvents). This version uses a prebuilt Docker image from Docker Hub and runs using **Docker Compose**
+A containerized Vue 3 frontend application to add user interface for java spring boot [backend server](https://github.com/Plus-Ultra-Consulting/awesomeEvents). This version uses a prebuilt Docker image from Docker Hub and runs using **Docker Compose**
 
 --- 
 
@@ -62,7 +62,7 @@ docker compose down
 If you want to access logs, run:
 
 ```bash
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ---
@@ -81,27 +81,26 @@ Make sure you have the following installed:
 
 ---
 
-### Building the software
-
-#### Building docker image
-
-To build a docker image from a project file, run:
-
-```bash
-docker compose build
-```
-
----
-
-
 ###  Setup
 
-Now, when all required files are built, you must set up the environment variables.
+First, you must set up the environment variables because they are used when building the image.
 
 In project root folder, create `.env` file with the following content.
 
 ```dotenv
 VITE_API_URL=http://localhost:8080
+```
+
+---
+
+### Building the software
+
+#### Building docker image
+
+Now, to build a docker image from a project file, run:
+
+```bash
+docker compose build
 ```
 
 ---
@@ -114,7 +113,7 @@ Finally, run the following command in the terminal / CLI / etc. to start the ser
 docker compose up -d
 ```
 
-Now, web server is available at `http://localhost:3000/` or another port if you changed it in the configuration.
+Web server is available at `http://localhost:3000/` or another port if you changed it in the configuration.
 
 If you want to stop the server and remove the image, run:
 
@@ -125,7 +124,7 @@ docker compose down
 If you want to access logs, run:
 
 ```bash
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ---
@@ -136,7 +135,7 @@ docker-compose logs -f
 
 ### Environment configuration
 
-gvTo set up the environment, you can do it manually.
+To set up the environment, you can do it manually.
 These are the example commands to do it:
 - cmd: `set VAR_NAME=value`
 - bash: `export VAR_NAME=value`
