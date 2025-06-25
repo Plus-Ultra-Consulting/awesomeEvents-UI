@@ -58,7 +58,7 @@ const createEvent = async () => {
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to create an event !</h1>
         </div>
         <div class="modal-body">
-          Failed to create an event. Please try again.
+          Failed to create an event.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

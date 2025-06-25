@@ -47,7 +47,7 @@ const createPerson = async () => {
     <label for="lastName" class="form-label">Place</label>
     <input type="text" class="form-control" id="lastName" v-model="lastName"/>
 
-    <label for="email" class="form-label">Starts at</label>
+    <label for="email" class="form-label">Email</label>
     <input type="email" class="form-control" id="email" v-model="email"/>
 
     <button class="btn btn-primary mt-3" @click="createPerson">Create</button>
@@ -60,7 +60,7 @@ const createPerson = async () => {
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Failed to create a person !</h1>
         </div>
         <div class="modal-body">
-          Failed to create a person. Please try again.
+          Failed to create a person.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
