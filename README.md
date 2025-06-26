@@ -31,14 +31,16 @@ services:
     image: cotezzlapyx/awesome-events-ui:latest
     ports:
       - "3000:80"
-    environment:
-      VITE_API_URL: ${VITE_API_URL}
+    volumes:
+      - ./config/config.json:/usr/share/nginx/html/config.json:ro
 ```
 
-Then, in the same folder, create `.env` file with following the content.
+Then, in the same folder, create `config` folder and `confing.json` inside with following the content.
 
-```dotenv
-VITE_API_URL=http://localhost:8080
+```json
+{
+  "VITE_API_URL": "http://localhost:8080"
+}
 ```
 
 ---
@@ -81,26 +83,26 @@ Make sure you have the following installed:
 
 ---
 
-###  Setup
-
-First, you must set up the environment variables because they are used when building the image.
-
-In project root folder, create `.env` file with the following content.
-
-```dotenv
-VITE_API_URL=http://localhost:8080
-```
-
----
-
 ### Building the software
 
 #### Building docker image
 
-Now, to build a docker image from a project file, run:
+First, to build a docker image from project files, run:
 
 ```bash
 docker compose build
+```
+
+---
+
+###  Setup
+
+Now, you have to set up the configuration create `config` folder in project root directory, and inside, create `confing.json` with following the content.
+
+```json
+{
+  "VITE_API_URL": "http://localhost:8080"
+}
 ```
 
 ---
@@ -128,18 +130,3 @@ docker compose logs -f
 ```
 
 ---
-
-## Additional info
-
----
-
-### Environment configuration
-
-To set up the environment, you can do it manually.
-These are the example commands to do it:
-- cmd: `set VAR_NAME=value`
-- bash: `export VAR_NAME=value`
-- powershell: `$env:VAR_NAME="value"`
-
-Or you can create `.env` file in the main folder,
-and configure everything there.
