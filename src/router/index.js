@@ -41,14 +41,6 @@ const router = createRouter({
       },
     },
     {
-      path: '/event',
-      name: 'event',
-      component: () => import('../views/EventView.vue'),
-      meta: {
-        isGuestPage: false,
-      },
-    },
-    {
       path: '/user',
       name: 'user',
       component: () => import('../views/UserView.vue'),

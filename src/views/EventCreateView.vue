@@ -32,7 +32,7 @@ const createEvent = async () => {
   }
   const result = await response.json();
   console.log("Event created: ", result);
-  await router.push({name: "event"});
+  await router.push({name: "home"});
 };
 </script>
 <template>
