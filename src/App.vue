@@ -25,7 +25,7 @@ const hideNavbar = ["login", "register"]
             </li>
             <li class="nav-item">
               <RouterLink to="/logout" class="nav-link" aria-current="page">
-                <i class="bi bi-box-arrow-right me-1"></i>Logout
+                <i class="bi bi-box-arrow-right me-1"></i>Sign Out
               </RouterLink>
             </li>
           </ul>

@@ -80,6 +80,11 @@ onMounted(loadEvents);
             <p><strong>starts at:</strong> {{ event.startAt }}</p>
           </div>
         </div>
+
+        <div v-if="events.length === 0">
+          <h4>No events found</h4>
+        </div>
+
       </div>
 
       <div class="col-md-3 mt-3">
