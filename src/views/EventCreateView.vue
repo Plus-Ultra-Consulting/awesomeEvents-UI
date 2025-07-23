@@ -2,18 +2,19 @@
 import {ref} from "vue";
 import {getApiUrl, showModalWhenReady} from "@/utils.js";
 import {useRouter} from "vue-router";
+import dayjs from "dayjs";
 
 const router = useRouter();
 
-const name = ref("name");
-const place = ref("fun place");
-const startAt = ref("2025-12-22 23:30");
+const name = ref();
+const place = ref();
+const startAt = ref();
 
 const createEvent = async () => {
   const body = JSON.stringify({
     name: name.value,
     place: place.value,
-    startAt: startAt.value,
+    startAt: dayjs(startAt.value).format("YYYY-MM-DD HH:mm"),
   });
 
   const request = {
@@ -34,21 +35,25 @@ const createEvent = async () => {
   console.log("Event created: ", result);
   await router.push({name: "home"});
 };
+
+const goToHome = async () => {
+  await router.push({name: "home"});
+};
+
 </script>
 <template>
-  <h5>Create new event</h5>
+  <div class="container mt-5" style="max-width: 400px;">
+    <h2>Create new event</h2>
+    <form>
+      <input type="text" class="form-control mb-3" placeholder="Name" v-model="name"/>
+      <input type="text" class="form-control mb-3" placeholder="Place" v-model="place"/>
+      <input type="datetime-local" class="form-control mb-3" placeholder="Choose date" v-model="startAt"/>
 
-  <div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" class="form-control" id="name" v-model="name"/>
-
-    <label for="place" class="form-label">Place</label>
-    <input type="text" class="form-control" id="place" v-model="place"/>
-
-    <label for="startAt" class="form-label">Starts at</label>
-    <input type="text" class="form-control" id="startAt" v-model="startAt"/>
-
-    <button class="btn btn-primary mt-3" @click="createEvent">Create</button>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary w-100" type="button" @click="goToHome">Cancel</button>
+        <button class="btn btn-primary w-100" type="button" @click="createEvent">Create</button>
+      </div>
+    </form>
   </div>
 
   <div class="modal fade" id="eventCreateFailedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
