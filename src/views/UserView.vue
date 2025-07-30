@@ -50,6 +50,8 @@ const updateUser = async () => {
   const result = await response.json();
   console.log("User updated: ", result);
   showModalWhenReady("userUpdateSuccessfulModal");
+
+  await loadUser()
 };
 
 const deleteUser = async () => {

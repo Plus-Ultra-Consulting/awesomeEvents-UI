@@ -74,6 +74,8 @@ const updateEvent = async () => {
   showModalWhenReady("eventUpdateSuccessfulModal");
   const result = await response.json();
   console.log("Event updated: ", result);
+
+  await loadEvent();
 };
 
 const deleteEvent = async () => {
@@ -89,7 +91,7 @@ const deleteEvent = async () => {
   };
   const response = await fetch(`${getApiUrl()}/event`, request);
   if (response.ok) {
-    await router.push({name: "event"});
+    await router.push({name: "home"});
   }
   const data = await response.json();
   console.log(data);

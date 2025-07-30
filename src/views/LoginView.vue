@@ -68,19 +68,30 @@ const goToRegistrationPage = () => {
 
 </script>
 <template>
-  <div class="mb-3">
-    <label for="username" class="form-label">Email</label>
-    <input type="email" class="form-control" id="username" v-model="username">
+  <div class="container mt-5" style="max-width: 400px;">
+    <h2>Awesome Events</h2>
+    <form>
+      <div class="mb-3">
+        <input type="email" class="form-control" placeholder="Email address" v-model="username"/>
+      </div>
 
-    <div v-if="otpSent === true">
-      <label for="otp" class="form-label">One-time code</label>
-      <input type="text" class="form-control" id="otp" v-model="otp" placeholder="XXXXXX" maxlength="6">
-      <button class="btn btn-primary mt-3" @click="login">Login</button>
-    </div>
-    <div v-if="otpSent === false">
-      <button class="btn btn-primary mt-3" @click="sendOtp" type="button" data-bs-toggle="modal" data-bs-target="#emailSendingInProgressModal">Send one-time password</button>
-    </div>
-    <button class="btn btn-outline-secondary mt-3" @click="goToRegistrationPage">Register</button>
+      <div v-if="otpSent">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="One-time code" v-model="otp" maxlength="6"/>
+        </div>
+        <button class="btn btn-primary w-100" type="button" @click="login">Sign In</button>
+      </div>
+
+      <div v-else>
+        <button class="btn btn-primary w-100" type="button" @click="sendOtp" data-bs-toggle="modal" data-bs-target="#emailSendingInProgressModal">Send One-time code</button>
+      </div>
+
+      <div class="text-center mt-3">
+        <small>Not a member?
+          <a href="#" @click="goToRegistrationPage">Sign Up</a>
+        </small>
+      </div>
+    </form>
   </div>
 
   <div class="modal fade" id="emailSendingInProgressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -110,7 +121,7 @@ const goToRegistrationPage = () => {
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Email sent</h1>
         </div>
         <div class="modal-body">
-          Email has been sent to the user.
+          The code has been sent, please check your email.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

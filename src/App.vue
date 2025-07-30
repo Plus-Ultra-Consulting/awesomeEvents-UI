@@ -16,11 +16,6 @@ const hideNavbar = ["login", "register"]
                 <i class="bi bi-grid me-1"></i>Dashboard
               </RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink to="/event" class="nav-link" aria-current="page">
-                Events
-              </RouterLink>
-            </li>
           </ul>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -30,7 +25,7 @@ const hideNavbar = ["login", "register"]
             </li>
             <li class="nav-item">
               <RouterLink to="/logout" class="nav-link" aria-current="page">
-                <i class="bi bi-box-arrow-right me-1"></i>Logout
+                <i class="bi bi-box-arrow-right me-1"></i>Sign Out
               </RouterLink>
             </li>
           </ul>
@@ -39,5 +34,4 @@ const hideNavbar = ["login", "register"]
     </nav>
   </div>
   <RouterView/>
-
 </template>
